@@ -13,11 +13,23 @@ function addClickHandlers() {
 }
 
 function handleRead(){
-  console.log('In handleRead');
+  const id = $(this).closest('tr').data('id');
+  console.log('In handleRead at', id);
+
+  $.ajax({
+    type: 'PUT',
+    url: `/books/${id}`,
+    data: dataToSend
+  }).then(function (response){
+    console.log('updated');
+    refreshBooks();
+  }).catch(function (error){
+    alert('error updating read status');
+  });
 }
 
 function handleDelete(){
-  const id = $(this).closest('tr').data('id');
+  const id = $(this).closest('tr').data("book").id;
   console.log(id);
 
   $.ajax({
@@ -26,7 +38,9 @@ function handleDelete(){
   }).then(function (response){
       console.log('deleted');
       refreshBooks();
-  })
+  }).catch(function (error){
+      alert('error deleting book');
+  });
 }
 
 function handleSubmit() {
@@ -73,7 +87,7 @@ function renderBooks(books) {
   for(let i = 0; i < books.length; i += 1) {
     let book = books[i];
     // For each book, append a new row to our table
-    let $tr = $(`<tr data-id=${book.id}></tr>`);
+    let $tr = $(`<tr></tr>`);
     $tr.data('book', book);
     $tr.append(`<td>${book.title}</td>`);
     $tr.append(`<td>${book.author}</td>`);
