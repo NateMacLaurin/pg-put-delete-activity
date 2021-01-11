@@ -58,11 +58,12 @@ router.delete('/:id',  (req, res) => {
 
   // TODO - REPLACE BELOW WITH YOUR CODE
 
-  let queryText = `DELETE FROM "books" WHERE "ID" = $1;`;
+  const queryText = `DELETE FROM "books" WHERE "id" = $1;`;
 
   pool.query(queryText, [id])
     .then(result => {
-      res.sendStatus(200);
+      console.log('Deleted');
+      res.sendStatus(204);
     }).catch(error => {
       console.log(`Error deleting new book`, error);
       res.sendStatus(500);
