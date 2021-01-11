@@ -42,3 +42,11 @@ INSERT INTO "books" ("title", "author", "published") VALUES ('The Whistler', 'Jo
 INSERT INTO "books" ("title", "author", "published") VALUES ('Island of Glass', 'Nora Roberts', '12-6-2016');
 
 SELECT * FROM "books";
+
+DELETE FROM "books" WHERE "id" = 34;
+
+INSERT INTO "books" ("title", "author", "published") VALUES ('Island of Glass', 'Nora Roberts', '12-6-2016');
+
+UPDATE "books"
+SET "status" = 'Read'
+WHERE "id" = 40;
