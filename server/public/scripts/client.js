@@ -8,6 +8,20 @@ function addClickHandlers() {
   $('#submitBtn').on('click', handleSubmit);
 
   // TODO - Add code for edit & delete buttons
+  $(`#bookShelf`).on(`click`, `#delBtn`, handleDelete);
+}
+
+function handleDelete(){
+  const id = $(this).closest('tr').data('id');
+  console.log(id);
+
+  $.ajax({
+      type: 'DELETE',
+      url: `/books/${id}`
+  }).then(function (response){
+      console.log('deleted');
+      refreshBooks();
+  })
 }
 
 function handleSubmit() {
