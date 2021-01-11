@@ -39,13 +39,24 @@ router.post('/',  (req, res) => {
 // Request must include a parameter indicating what book to update - the id
 // Request body must include the content to update - the status
 router.put('/:id',  (req, res) => {
-  let book = req.body; // Book with updated content
+  let book = req.body.data; // Book with updated content
   let id = req.params.id; // id of the book to update
 
-  console.log(`Updating book ${id} with `, book);
+  console.log(`Updating book ${id} with 'Read' Status.`);
+
+  const queryText = `UPDATE "books"
+                    SET "status" = 'Read'
+                    WHERE "id" = $1`;
 
   // TODO - REPLACE BELOW WITH YOUR CODE
-  res.sendStatus(500);
+  pool.query(queryText, [id]).then(result => {
+    console.log('Put');
+    res.sendStatus(204);
+  }).catch(error =>{
+    console.log(`Error putting new book status`, error);
+    res.sendStatus(500);
+  });
+
 
 });
 

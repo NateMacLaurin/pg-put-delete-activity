@@ -13,8 +13,12 @@ function addClickHandlers() {
 }
 
 function handleRead(){
-  const id = $(this).closest('tr').data('id');
-  console.log('In handleRead at', id);
+  const id = $(this).closest('tr').data("book").id;
+  console.log('AJAX PUT', id);
+
+  const dataToSend = {data : $(this).closest('tr').data("book")};
+
+  console.log('PUTting:', dataToSend);
 
   $.ajax({
     type: 'PUT',
@@ -30,7 +34,7 @@ function handleRead(){
 
 function handleDelete(){
   const id = $(this).closest('tr').data("book").id;
-  console.log(id);
+  console.log('AJAX DELETE', id);
 
   $.ajax({
       type: 'DELETE',
@@ -92,7 +96,9 @@ function renderBooks(books) {
     $tr.append(`<td>${book.title}</td>`);
     $tr.append(`<td>${book.author}</td>`);
     $tr.append(`<td>${book.status}</td>`);
-    $tr.append(`<button class="readBtn">READ</button>`);
+    if(book.status != 'Read'){
+      $tr.append(`<button class="readBtn">Read</button>`);
+    }
     $tr.append(`<button class="delBtn">DELETE</button>`);
     $('#bookShelf').append($tr);
   }
