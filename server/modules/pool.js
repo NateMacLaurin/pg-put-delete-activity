@@ -7,7 +7,6 @@ const config = {
   max: 10, 
   idleTimeoutMillis: 30000,
   user: 'postgres',
-  password: 'p3LmANHQ$p'
 };
 
 const pool = new pg.Pool(config);
